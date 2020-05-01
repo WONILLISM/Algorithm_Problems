@@ -1,7 +1,15 @@
-### vscode
-.vscode/
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 
-### cpp
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+
+### cpp ###
 # Prerequisites
 *.d
 
@@ -35,7 +43,7 @@
 *.out
 *.app
 
-### python  
+### python  ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
