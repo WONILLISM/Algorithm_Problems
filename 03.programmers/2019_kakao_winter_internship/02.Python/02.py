@@ -4,8 +4,8 @@ def solution(s):
     s = s.split("},{")
     s.sort(key = len)
     for i in s:
-        ii = i.split(',')
-        for j in ii:
+        tmp = i.split(',')
+        for j in tmp:
             if int(j) not in answer:
                 answer.append(int(j))
     return answer

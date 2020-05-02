@@ -44,6 +44,7 @@ vector<int> solution(string s) {
 			}
 		}
 	}
+
 	sort(ans.begin(), ans.end());
 	for (auto res : ans)
 		answer.push_back(res.second);
