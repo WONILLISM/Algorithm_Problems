@@ -2,12 +2,10 @@ chk = 0b00000000
 s = []
 def comb(user_id, banned_id,cnt):
     global chk
+    global s
     if cnt == len(banned_id):
-        print(chk in s)
-        if chk in s==False:
-            print("ok")
+        if chk not in s:
             s.append(chk)
-        print(s)
         return
     bid = banned_id[cnt]
     for i in range(len(user_id)):
@@ -24,13 +22,13 @@ def comb(user_id, banned_id,cnt):
                 comb(user_id, banned_id,cnt+1)
                 chk -=1<<i
 def solution(user_id, banned_id):
+    global chk
+    global s
     answer = 0
-    s =[]
     comb(user_id, banned_id,0)
     answer = len(s)
 
     return answer
-
 
 
 input_uid = ["frodo", "fradi", "crodo", "abc123", "frodoc"]
