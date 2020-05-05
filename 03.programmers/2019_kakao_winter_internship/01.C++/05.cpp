@@ -1,57 +1,57 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <deque>
 #include <algorithm>
 
 using namespace std;
-int ABS(int x){return x>=0?x:-x;}
-int isPositive(int x) { return x==0?0:(x>0?1:-1); } //양수면 1,0이면 0 음수면 -1
-int solution(vector<int> stones, int k)
-{
-    int answer = 0;
-    int t = 1;
-    // 커지던 작아지던 연속하는 숫자가 k개 인부분을 찾는다
-    int Min = 1 << 30; // 연속하는 숫자의 개수, 연속하는 숫자중 가장 큰수들 갱신
-    int d = 0;                  // 증감 확인을 위한 변수
-    vector<int> stone;  // 연속하는 돌 
-    stone.push_back(stones[0]);
-    for (int i = 1; i < stones.size(); i++){
-        if (stone.size() == 1)
-        {
-            d = stones[i] - stones[i - 1];
-            stone.push_back(stones[i]);
-        }
-        else if (stones.size() > 1)
-        {
-            int d2 = stones[i] - stones[i - 1];
-            int p1 = isPositive(d);
-            int p2 = isPositive(d2);
-            if (p1==p2 ||ABS(p1-p2)==1)
-            {
-                stone.push_back(stones[i]);
-                if (stone.size() == k){
-                    sort(stone.begin(), stone.end());
-                    Min = min(Min, stone.back());
-                    stone.clear();
-                    if(i<stones.size()-1){
-                        stone.push_back(stones[++i]);
-                    }
-                }
-            }
-            else
-            {
-                stone.clear();
-                stone.push_back(stones[i]);
-            }
-        }
+
+int answer=1<<30;
+
+int solution(vector<int> stones, int k){
+    if(stones.size()<k){
+        sort(stones.begin(),stones.end());
+        return answer = stones.back();
     }
-    answer = Min;
+    deque<int> deq;    
+    bool inc = false, dec = false;   // 증감 확인
+    int d1 = stones[0] - stones[1];
+    if(d1 >= 0) dec = true;
+    if(d1 <= 0) inc  = true;
+    deq.push_back(stones[0]);
+    deq.push_back(stones[1]);
+    if(k<=2)return deq.front()>deq.back()?deq.front():deq.back();
+    for(int i = 2; i<stones.size(); i++){
+        int d2 = stones[i-1] - stones[i];
+        deq.push_back(stones[i]);
+        if(d2==0){
+            dec = true;
+            inc = true;
+        }
+        else if(d2 >0){
+            if(d1 < 0) deq.pop_front();
+            dec = true;
+            inc = false;
+        }
+        else if(d2<0){
+            if(d1 >0) deq.pop_front();
+            dec = false;
+            inc = true;
+        }
+        if(deq.size() == k){
+            if(dec) answer = min(answer, deq.front());
+            if(inc) answer = min(answer, deq.back());
+            deq.pop_front();
+        }
+        d1 = d2;
+    }
+
     return answer;
 }
-int main()
-{
-    vector<int> s = {2, 4, 5, 3, 2, 1, 4, 2, 5, 1};
-    int k = 3;
+int main(){
+    // vector<int> s = {2, 4, 5, 3, 2, 1, 4, 2, 5, 1};
+    vector<int> s = {4,5,6};
+    int k = 2;
     cout << solution(s, k) << endl;
     return 0;
 }
