@@ -6,47 +6,28 @@
 
 using namespace std;
 
-int answer=1<<30;
 
-int solution(vector<int> stones, int k){
-    if(stones.size()<k){
-        sort(stones.begin(),stones.end());
-        return answer = stones.back();
-    }
-    deque<int> deq;    
-    bool inc = false, dec = false;   // 증감 확인
-    int d1 = stones[0] - stones[1];
-    if(d1 >= 0) dec = true;
-    if(d1 <= 0) inc  = true;
-    deq.push_back(stones[0]);
-    deq.push_back(stones[1]);
-    if(k<=2)return deq.front()>deq.back()?deq.front():deq.back();
-    for(int i = 2; i<stones.size(); i++){
-        int d2 = stones[i-1] - stones[i];
-        deq.push_back(stones[i]);
-        if(d2==0){
-            dec = true;
-            inc = true;
+int solution(vector<int> stones, int k) {
+    int left = 1, right = *max_element(stones.begin(),stones.end());
+    int size = stones.size();
+    while(left <= right){
+        int mid = (left + right) / 2;
+        int cnt = 0;
+        bool flag = false;
+        for(int i = 0; i < size; i++){
+            //cnt가 연속으로 1씩 더해져 k보다 크거나 같아지는 경우에는 건널 수 없음.
+            if(stones[i] - mid <= 0) cnt++;
+            else cnt = 0;
+            if(cnt >= k){
+                flag = true;
+                break;
+            }
         }
-        else if(d2 >0){
-            if(d1 < 0) deq.pop_front();
-            dec = true;
-            inc = false;
-        }
-        else if(d2<0){
-            if(d1 >0) deq.pop_front();
-            dec = false;
-            inc = true;
-        }
-        if(deq.size() == k){
-            if(dec) answer = min(answer, deq.front());
-            if(inc) answer = min(answer, deq.back());
-            deq.pop_front();
-        }
-        d1 = d2;
-    }
 
-    return answer;
+        if(flag) right = mid - 1;   // mid값 보다 더 작은 경우가 있는지 재 탐색
+        else left = mid + 1;        // mid값에 대한 경우를 찾을 수 없으므로 더 큰 값 탐색
+    }
+    return left;
 }
 int main(){
     // vector<int> s = {2, 4, 5, 3, 2, 1, 4, 2, 5, 1};
