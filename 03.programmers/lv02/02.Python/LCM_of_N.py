@@ -1,6 +1,5 @@
 def solution(arr):
     answer = arr[0]
-    
     GCD = lambda a, b : b if a%b==0 else GCD(b,a%b)
     LCM = lambda a, b : int(a*b/GCD(a,b))
     for i in range(1,len(arr)):

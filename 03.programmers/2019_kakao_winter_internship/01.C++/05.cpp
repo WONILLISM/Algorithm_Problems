@@ -24,15 +24,14 @@ int solution(vector<int> stones, int k) {
             }
         }
 
-        if(flag) right = mid - 1;   // mid값 보다 더 작은 경우가 있는지 재 탐색
-        else left = mid + 1;        // mid값에 대한 경우를 찾을 수 없으므로 더 큰 값 탐색
+        if(flag) right = mid - 1;   
+        else left = mid + 1;        
     }
     return left;
 }
 int main(){
-    // vector<int> s = {2, 4, 5, 3, 2, 1, 4, 2, 5, 1};
-    vector<int> s = {4,5,6};
-    int k = 2;
+    vector<int> s = {2, 4, 5, 3, 2, 1, 4, 2, 5, 1};
+    int k = 3;
     cout << solution(s, k) << endl;
     return 0;
 }
