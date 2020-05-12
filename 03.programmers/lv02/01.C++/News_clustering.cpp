@@ -6,57 +6,39 @@
 
 using namespace std;
 
-const double MUL = 65536.0;
+const int MUL = 65536;
 
-unordered_map<string,int> split(string s){
-    unordered_map<string, int> ret;
-    if(s.empty())return ret;
-    for (int i = 0; i < s.size()-1; i++){
-        s[i] = tolower(s[i]);
-        s[i+1] =tolower(s[i+1]);
-        if (s[i] < 'a' || s[i] > 'z') continue;
-        if (s[i+1] < 'a' || s[i+1] > 'z') continue;
-        
-        string tmp="";
-        tmp += s[i];
-        tmp += s[i+1];
 
-        if(ret.find(tmp)==ret.end())ret.insert({tmp,1});
-        else ret[tmp]++;
+vector <string> makeArr(string str){
+    vector<string> sv;
+    string sub;
+
+    for(int i = 0; i < str.length()-1; i++){
+        if(!isalpha(str[i]) || !isalpha(str[i+1])) continue;
+        sub = str.substr(i,2);
+
+        transform(sub.begin(), sub.end(), sub.begin(), towlower);
+        sv.push_back(sub);
     }
-    return ret;
+    return sv;
 }
 int solution(string str1, string str2) {
-    double answer = 0;
-    unordered_map<string, int> m1;
-    unordered_map<string, int> m2;
+    int answer = 0;
+    vector <string> sv1 = makeArr(str1);
+    vector <string> sv2 = makeArr(str2);
+    vector <string> sv = sv2;
 
-    m1 = split(str1);
-    m2 = split(str2);
-    if(m1.empty() || m2.empty()) return MUL;
+    if(!sv1.size() && !sv2.size()) return MUL;
 
-    int _union = 0;
-    int _intersection = 0;
-
-    for(auto i : m1) _union+=i.second;
-
-    for(auto i : m2){ 
-        string key = i.first;
-        int m2_v = i.second;
-        if(m1.find(key)!= m1.end()){
-            int m1_v = m1[key];
-            if(m1_v<m2_v){
-                _union -= m1_v;
-                _union += m2_v;
-                _intersection+=m1_v;
-            }
-            else _intersection+=m2_v;
-            
+    for(int i = 0; i < sv1.size(); i++){
+        auto itr = find(sv.begin(), sv.end(), sv1[i]);
+        if(itr != sv.end())
+        {
+            sv.erase(itr);
+            answer++;
         }
-        else _union+=m2_v;
     }
-    if(_union==0 || _intersection==0) return MUL;
-    else return answer = MUL * (_intersection / (double)_union);
+    return MUL * ((double)answer/(double)(sv1.size()+sv2.size()-answer));
 }
 int main(){
     // string s1 = "handshake";    //ha an nd ds sh ha ak ke
