@@ -6,8 +6,8 @@ int solution(int n, int a, int b){
     int answer =0;
     a--,b--;
     while(a!=b){
-        a = a>>1 == 0? 0: a>>1;
-        b = b>>1 == 0? 0: b>>1;
+        a = a>>1;
+        b = b>>1;
         answer++;
     }
     return answer;
