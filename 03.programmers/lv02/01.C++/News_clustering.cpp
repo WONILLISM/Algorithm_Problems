@@ -15,9 +15,9 @@ vector <string> makeArr(string str){
 
     for(int i = 0; i < str.length()-1; i++){
         if(!isalpha(str[i]) || !isalpha(str[i+1])) continue;
+        str[i] = tolower(str[i]);
+        str[i+1] = tolower(str[i+1]);
         sub = str.substr(i,2);
-
-        transform(sub.begin(), sub.end(), sub.begin(), towlower);
         sv.push_back(sub);
     }
     return sv;
@@ -28,12 +28,11 @@ int solution(string str1, string str2) {
     vector <string> sv2 = makeArr(str2);
     vector <string> sv = sv2;
 
-    if(!sv1.size() && !sv2.size()) return MUL;
+    if(sv1.empty() && sv2.empty()) return MUL;
 
     for(int i = 0; i < sv1.size(); i++){
         auto itr = find(sv.begin(), sv.end(), sv1[i]);
-        if(itr != sv.end())
-        {
+        if(itr != sv.end()){
             sv.erase(itr);
             answer++;
         }
