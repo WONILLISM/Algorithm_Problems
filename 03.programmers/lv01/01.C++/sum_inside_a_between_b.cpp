@@ -1,3 +1,4 @@
+#include <iostream>
 #include <string>
 #include <vector>
 #include <algorithm>
@@ -12,4 +13,9 @@ long long solution(int a, int b) {
     if(ov)answer = (a+b)*d/2;
     else answer = (a+b)*(d-1)/2 + (a+b)/2;   
     return answer;
+}
+int main(){
+    int a = 3, b = 5;
+    cout<<solution(a,b)<<endl;
+    return 0;
 }
