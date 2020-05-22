@@ -1,7 +1,7 @@
 def solution(n):
     answer = 0
-    check = [False] * (n+1);
-    check[0] = check[1] = True;
+    check = [False] * (n+1)
+    check[0] = check[1] = True
 
     for i in range(2,n+1):
         if check[i] == False:
