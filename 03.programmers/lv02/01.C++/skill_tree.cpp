@@ -1,21 +1,29 @@
-#include<iostream>
 #include <string>
 #include <vector>
-
+#include <iostream>
 using namespace std;
 
 int solution(string skill, vector<string> skill_trees) {
-    int answer = 0;
-    for(int i=0; i<skill_trees.size(); i++){
-        string str = skill_trees[i];
-        string tmp ="";
-        for(int j=0; j<str.size(); j++)
-            if(skill.find(str[j])!=string::npos)tmp+=str[j];
-        for(int j=0; j<tmp.size(); j++){
-            
-        }
-    }
-    return answer;
+	int answer = 0;
+	vector<bool> check(26);    
+
+	for (int i = 0; i < skill.length(); i++)    
+		check[skill[i] - 65] = true;
+
+	for (int i = 0; i < skill_trees.size(); i++) {
+		int index = 0;
+		int j;
+        string s = skill_trees[i];
+		for (j = 0; j < s.length(); j++) {
+			if (check[s[j] - 65]) {
+				if (skill[index] == s[j]) index++;
+				else break;
+			}
+		}
+		if (j == skill_trees[i].length())
+			answer++;
+	}
+	return answer;
 }
 int main(){
     string skill = "CBD";
