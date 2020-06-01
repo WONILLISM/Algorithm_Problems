@@ -8,6 +8,6 @@ string solution(int num) {
     return num%2 == 0?"Even":"Odd";
 }
 int main(){
-    cout<<solution(3)<<end;
+    cout<<solution(3)<<endl;
     return 0;
 }
