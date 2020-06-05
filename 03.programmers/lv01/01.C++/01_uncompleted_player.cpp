@@ -34,13 +34,18 @@ using namespace std;
 //     }
 // }
 string solution(vector<string> participant, vector<string> completion) {
-    unordered_map<string,int> completetion_player;
+    unordered_map<string,int> completion_player;
     for(string s : completion) 
-        completetion_player[s]++;
+        completion_player[s]++;
+    for(auto a : completion_player)
+        cout<<a.second<<endl;
     for(string s : participant){
-        auto itr = completetion_player.find(s);
-        if(itr != completetion_player.end()) completetion_player[s]--;
-        else if(!completetion_player[s])return s;
+        auto itr = completion_player.find(s);
+        if(itr != completion_player.end()) {
+            completion_player[s]--;
+            if(completion_player[s]==-1) return s;
+        }
+        else return s;
     }
 }
 int main(){
