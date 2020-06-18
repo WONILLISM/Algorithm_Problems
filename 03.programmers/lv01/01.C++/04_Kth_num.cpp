@@ -1,19 +1,17 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
 vector<int> solution(vector<int> array, vector<vector<int>> commands) {
     vector<int> answer;
     for(int i = 0; i < commands.size(); i++){
-        vector<int> cmd = commands[i];
-        int s = cmd[0], e = commands[i][1], k = commands[i][2];
         vector<int> tmp;
-        tmp.assign(cmd.begin() + s, cmd.begin() + e);
-        for(auto a: tmp)
-            cout<<a<<" ";
-        cout<<endl;
+        tmp.assign(array.begin() + commands[i][0] -1, array.begin() + commands[i][1]);
+        sort(tmp.begin(), tmp.end());
+       answer.push_back(tmp[commands[i][2]-1]);
     }
     return answer;
 }
@@ -25,3 +23,17 @@ int main(){
         cout<<ans<<" ";
     return 0;
 }
+
+// vector<int> solution(vector<int> array, vector<vector<int>> commands) {
+//     vector<int> answer;
+//     for(int i = 0; i < commands.size(); i++){
+//         vector<int> cmd = commands[i];
+//         vector<int> tmp;
+//         int s = cmd[0], e = cmd[1], k = cmd[2];
+//         for(int j = s-1; j < e; j++)
+//             tmp.push_back(array[j]);
+//         sort(tmp.begin(), tmp.end());
+//         answer.push_back(tmp[k-1]);
+//     }
+//     return answer;
+// }
