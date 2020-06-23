@@ -2,8 +2,9 @@ def solution(dartResult):
     answer = []
     for i, c in enumerate(dartResult):
         if c.isdigit(): 
-            if dartResult[i+1].isdigit(): 
-                answer.append(int(dartResult[i:i+1]))
+            if c==0 and dartResult[i-1] == 1:
+                answer.pop(-1)
+                answer.append(10)
             else:
                 answer.append(int(c))
         else:
