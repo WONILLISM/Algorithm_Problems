@@ -7,9 +7,6 @@ def solution(n):
         if check[i] == False:
             for j in range(i*i, n+1, i):
                 check[j] = True
-
-    for i in range(2,n+1):
-        if check[i] == False:
-            answer += 1
+            answer+=1
 
     return answer
