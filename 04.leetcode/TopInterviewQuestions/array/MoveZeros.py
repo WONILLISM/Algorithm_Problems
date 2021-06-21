@@ -8,7 +8,6 @@ class Solution:
 				nums[i] = nums[zero]
 				nums[zero] = tmp
 				zero += 1
-		print(nums)
 		"""
 		Do not return anything, modify nums in-place instead.
 		"""

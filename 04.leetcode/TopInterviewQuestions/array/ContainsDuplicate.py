@@ -5,7 +5,7 @@ class Solution:
 #class Solution:
 #	def containsDuplicate(self, nums: List[int]) -> bool:
 #		answer = False
-#		tmp = set(nums)
+#		tmp = set(nums)P
 #		if len(nums) != len(tmp):
 #			answer = True
 #		return answer
